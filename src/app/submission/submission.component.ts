@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SafeUrl } from '@angular/platform-browser';
+
+
 
 @Component({
   selector: 'app-submission',
@@ -8,31 +11,58 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./submission.component.scss']
 })
 export class SubmissionComponent implements OnInit {
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+
+
+  recipeForm: FormGroup;
+  blob: string;
+  formData: FormData = new FormData()
 
   constructor(private http: HttpClient) { }
 
-  recipeForm!: FormGroup;
-
   ngOnInit(): void {
     this.recipeForm = new FormGroup({
-      title: new FormControl("",Validators.required),
-      
+      title: new FormControl("", Validators.required),
+      description: new FormControl("", Validators.required),
+      ingredients: new FormControl("", Validators.required),
+      image: new FormControl("", Validators.required),
     })
+  }
+
+  onImagePicked(event: any) {
+    const fileInput = event.target as HTMLInputElement;
+    const file: File = fileInput.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        // Convert the image to a data URL
+        const imageDataUrl = reader.result as string;
+
+        // Save the data URL to your JSON server
+        this.recipeForm.get('image').patchValue(imageDataUrl);
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
 
 
 
   onSubmit() {
-    const newRecipe = {
-      id: 12,
-      title: "xvanchkara"
+    const recipe = {
+      title: this.recipeForm.get('title').value,
+      description: this.recipeForm.get('description').value,
+      image: this.recipeForm.get("image").value,
+      ingredients: this.recipeForm.get('ingredients').value
     }
-    this.http.post("http://localhost:3000/recipes", newRecipe, this.httpOptions).subscribe(
+
+    console.log(recipe);
+
+    this.http.post("http://localhost:3000/recipes", recipe).subscribe(
       {
-        next: res => console.log(res)
+        next: res => console.log(res),
+        error: err => console.log(err)
       }
     )
   }

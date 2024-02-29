@@ -1,21 +1,29 @@
 <p style="text-align: center">Add New Recipe</p>
 
 <main>
-  <form>
-    <label>Title<input type="text" id="title" /></label>
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <label>Title<input type="text" formControlName="title" /></label>
     <label
       >Description<textarea
-        name="description"
+        formControlName="description"
         id="description"
         cols="30"
         rows="5"
       ></textarea>
     </label>
-    <label> Ingredients<input type="text" id="ingedients" /></label>
+    <label>
+      Ingredients<input type="text" formControlName="ingredients"
+    /></label>
     <label class="image-upload" for="image" style="align-items: center">
       Choose Image
       <i class="bi bi-cloud-arrow-up-fill" style="font-size: 70px"></i>
-      <input type="file" name="image" id="image" hidden
+      <input
+        type="file"
+        ngDefaultControl
+        (change)="onImagePicked($event)"
+        name="image"
+        id="image"
+        hidden
     /></label>
 
     <button type="submit">Add New Recipe</button>

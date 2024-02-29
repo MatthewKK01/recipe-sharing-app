@@ -8,6 +8,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { DetailedRecipeComponent } from './detailed-recipe/detailed-recipe.component';
 import { ErrorComponent } from './error/error.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ErrorComponent } from './error/error.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
