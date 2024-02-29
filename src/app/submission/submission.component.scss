@@ -1,0 +1,63 @@
+textarea{
+    resize: none;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+label{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.image-upload{
+    padding: 14px;
+    background-color: #F4F3FF;
+    border-radius: 8px;
+    border: 1px dotted #85858D;
+    cursor: pointer;
+}
+.image-upload:hover{
+    background-color: #eae8fc;
+}
+input,textarea{
+    border: 1px solid #E4E3EB;
+    background-color: #FCFCFD;
+    outline-color: #5D37F3;
+    border-radius: 8px;
+}
+input{
+    height: 44px;
+    padding: 12px;
+    
+}
+p{
+    position: relative;
+    top: 80px;
+    font-weight: bold;
+    font-size: 34px;
+}
+button{
+    background-color: #5d37f3a6;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+    padding-block: 10px;
+    cursor: pointer;
+    transition: all 0.4s ease-in;
+}
+button:hover{
+    background-color: #5D37F3;
+}

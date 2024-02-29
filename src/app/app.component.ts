@@ -8,9 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   title = 'recipe-sharing-app';
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  
 
   constructor(private http: HttpClient) { }
 
@@ -23,15 +21,5 @@ export class AppComponent implements OnInit {
       }
     )
   }
-  addFn() {
-    const newRecipe = {
-      id: 12,
-      title: "xvanchkara"
-    }
-    this.http.post("http://localhost:3000/recipes", newRecipe, this.httpOptions).subscribe(
-      {
-        next: res => console.log(res)
-      }
-    )
-  }
+  
 }
