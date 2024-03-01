@@ -19,4 +19,7 @@ export class RecipeService {
   fetchDetailedRecipe(id: string): Observable<Recipe> {
     return this.http.get<Recipe>(`http://localhost:3000/recipes/${id}`);
   }
+  deleteRecipe(id: string): Observable<void> {
+    return this.http.delete<void>(`http://localhost:3000/recipes/${id}`)
+  }
 }

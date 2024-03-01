@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe';
 
@@ -9,7 +9,7 @@ import { Recipe } from '../models/recipe';
   styleUrls: ['./detailed-recipe.component.scss']
 })
 export class DetailedRecipeComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private _recipe: RecipeService) { }
+  constructor(private route: ActivatedRoute, private _recipe: RecipeService, private router: Router) { }
   myRecipe: Recipe | undefined
 
   ngOnInit(): void {
@@ -23,6 +23,12 @@ export class DetailedRecipeComponent implements OnInit {
         }
       ); // Fetch Detailed Data
     });
+  }
+  deleteRecipe(id: string) {
+    this._recipe.deleteRecipe(id).subscribe({
+      next: res => console.log(res),
+      error: err => console.log(err)
+    })
   }
 
 }

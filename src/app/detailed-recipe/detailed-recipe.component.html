@@ -6,11 +6,18 @@
     alt="{{ myRecipe?.title }}"
     class="recipe-image"
   />
+  <button (click)="deleteRecipe(myRecipe.id)" class="btn btn-danger">
+    Delete Recipe
+  </button>
 
-  <h4 class="recipe-title">{{ myRecipe?.title }}</h4>
-  <p class="recipe-description">{{ myRecipe?.description }}</p>
+  <h1 class="recipe-title my-3">{{ myRecipe?.title }}</h1>
+
+  <p class="description mb-2 d-table h4">Description</p>
+  <p class="recipe-description mb-5">{{ myRecipe?.description }}</p>
+
+  <p class="h4 d-table mb-2 ingredients-title">Ingredients</p>
   <div class="table-container">
-    <table class="table recipe-table">
+    <table class="table recipe-table mb-5">
       <thead>
         <tr>
           <th>Quantity</th>
@@ -28,5 +35,5 @@
     </table>
   </div>
 
-  <p class="recipe-instruction">{{ myRecipe?.instruction }}</p>
+  <p class="recipe-instruction mb-5">{{ myRecipe?.instruction }}</p>
 </article>
