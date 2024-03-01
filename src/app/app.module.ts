@@ -9,6 +9,7 @@ import { SubmissionComponent } from './submission/submission.component';
 import { DetailedRecipeComponent } from './detailed-recipe/detailed-recipe.component';
 import { ErrorComponent } from './error/error.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RecipesComponent,
     SubmissionComponent,
     DetailedRecipeComponent,
-    ErrorComponent
+    ErrorComponent,
+    RecipeCardComponent
   ],
   imports: [
     BrowserModule,

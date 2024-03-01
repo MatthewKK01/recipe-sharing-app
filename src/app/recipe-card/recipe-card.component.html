@@ -1,0 +1,14 @@
+<div class="card" [style.width]="CardWidth">
+  <img class="card-img-top" [src]="detailedRecipe.image" alt="Card image cap" />
+  <div class="card-body">
+    <h3 class="card-title">{{ detailedRecipe.title }}</h3>
+    <p class="card-text">{{ detailedRecipe.description }}</p>
+
+    <a
+      *ngIf="Link"
+      [routerLink]="['/recipe', detailedRecipe.id]"
+      class="card-link"
+      >Detailed Information</a
+    >
+  </div>
+</div>

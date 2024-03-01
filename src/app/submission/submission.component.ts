@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
+import { RecipeService } from '../services/recipe.service';
+import { Recipe } from '../models/recipe';
 
 
 
@@ -17,7 +19,7 @@ export class SubmissionComponent implements OnInit {
   blob: string;
   formData: FormData = new FormData()
 
-  constructor(private http: HttpClient) { }
+  constructor(private _recipe: RecipeService) { }
 
   ngOnInit(): void {
     this.recipeForm = new FormGroup({
@@ -50,20 +52,16 @@ export class SubmissionComponent implements OnInit {
 
 
   onSubmit() {
-    const recipe = {
+    const newRecipe: Recipe = {
       title: this.recipeForm.get('title').value,
       description: this.recipeForm.get('description').value,
       image: this.recipeForm.get("image").value,
       ingredients: this.recipeForm.get('ingredients').value
     }
+    this._recipe.addRecipe(newRecipe).subscribe({
+      next: res => console.log(res),
+      error: err => console.log(err)
+    })
 
-    console.log(recipe);
-
-    this.http.post("http://localhost:3000/recipes", recipe).subscribe(
-      {
-        next: res => console.log(res),
-        error: err => console.log(err)
-      }
-    )
   }
 }
