@@ -63,6 +63,7 @@ export class SubmissionComponent implements OnInit {
   }
 
   addIngredients() {
+    
     this.ingredients.push(
       new FormGroup({
         name: new FormControl("", [Validators.required]),

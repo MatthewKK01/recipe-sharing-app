@@ -1,14 +1,32 @@
-<article>
-  <img [src]="myRecipe.image" alt="" />
-  <h4>{{ myRecipe.title }}</h4>
-  <p>{{ myRecipe.description }}</p>
-  <ul>
-    <li *ngFor="let item of myRecipe.ingredients">
-      <p>{{ item.name }}</p>
-      <p>
-        <span>{{ item.quantity }}</span> <span>{{ item.unit }}</span>
-      </p>
-    </li>
-  </ul>
-  <p>{{ myRecipe.instruction }}</p>
+<app-back-button></app-back-button>
+
+<article class="recipe-article">
+  <img
+    [src]="myRecipe?.image"
+    alt="{{ myRecipe?.title }}"
+    class="recipe-image"
+  />
+
+  <h4 class="recipe-title">{{ myRecipe?.title }}</h4>
+  <p class="recipe-description">{{ myRecipe?.description }}</p>
+  <div class="table-container">
+    <table class="table recipe-table">
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th>Unit</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of myRecipe?.ingredients">
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unit }}</td>
+          <td class="fw-bold">{{ item.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="recipe-instruction">{{ myRecipe?.instruction }}</p>
 </article>

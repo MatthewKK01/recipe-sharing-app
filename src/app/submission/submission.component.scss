@@ -3,10 +3,9 @@ textarea{
 }
 main{
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
     flex-direction: column;
+    margin-bottom: 24px;
 }
 
 form{
@@ -41,23 +40,13 @@ input{
     
 }
 p{
-    position: relative;
-    top: 80px;
+   
     font-weight: bold;
     font-size: 34px;
 }
-button{
-    background-color: #5d37f3a6;
-    color: white;
-    font-weight: bold;
-    width: 100%;
-    border: none;
-    border-radius: 8px;
-    height: 40px;
-    padding-block: 10px;
-    cursor: pointer;
-    transition: all 0.4s ease-in;
-}
-button:hover{
-    background-color: #5D37F3;
+
+a{
+    position: relative;
+    top: 2.5rem;
+    left: 2.5rem;
 }

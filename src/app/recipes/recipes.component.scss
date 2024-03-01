@@ -2,6 +2,7 @@ main{
     display: flex;
     max-width: 1280px;
     margin: 0 auto;
+    flex-wrap: wrap;
     padding-top: 180px;
     min-height: 100vh;
     gap: 28px;

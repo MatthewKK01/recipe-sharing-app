@@ -10,6 +10,7 @@ import { DetailedRecipeComponent } from './detailed-recipe/detailed-recipe.compo
 import { ErrorComponent } from './error/error.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { RecipeCardComponent } from './recipe-card/recipe-card.component';
     SubmissionComponent,
     DetailedRecipeComponent,
     ErrorComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    BackButtonComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
-<p style="text-align: center">Add New Recipe</p>
+<a routerLink="/" class="btn btn-info"><i class="bi bi-arrow-left"></i></a>
+
+<p style="text-align: center" class="mt-5">Add New Recipe</p>
 
 <main>
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
@@ -7,20 +9,24 @@
       >Description<input formControlName="description" id="description"
     /></label>
 
-    <div formArrayName="ingredients">
+    <div formArrayName="ingredients" class="d-flex flex-column gap-3">
       <div *ngFor="let ingredient of ingredients.controls; let i = index">
-        <div
-          [formGroupName]="i"
-          class="d-flex align-items-center gap-3"
-        >
+        <div [formGroupName]="i" class="d-flex align-items-center gap-3">
           <input formControlName="name" placeholder="Name" />
           <input formControlName="quantity" placeholder="Quantity" />
           <input formControlName="unit" placeholder="Unit" />
         </div>
       </div>
     </div>
+    <button
+      type="button"
+      (click)="addIngredients()"
+      class="mt-1 btn btn-warning"
+    >
+      Add New Ingredient
+    </button>
     <label for="instruction">
-      <textarea cols="30" rows="10" formControlName="instruction"></textarea>
+      <textarea cols="30" rows="5" formControlName="instruction"></textarea>
     </label>
 
     <label class="image-upload" for="image" style="align-items: center">
@@ -35,6 +41,6 @@
         hidden
     /></label>
 
-    <button type="submit">Add New Recipe</button>
+    <button type="submit" class="btn btn-primary">Add New Recipe</button>
   </form>
 </main>

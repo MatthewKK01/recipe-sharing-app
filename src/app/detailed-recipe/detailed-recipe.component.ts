@@ -10,7 +10,7 @@ import { Recipe } from '../models/recipe';
 })
 export class DetailedRecipeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private _recipe: RecipeService) { }
-  myRecipe: Recipe
+  myRecipe: Recipe | undefined
 
   ngOnInit(): void {
     //Borrow Id from query.
