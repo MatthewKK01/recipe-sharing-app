@@ -11,6 +11,4 @@ import { Router } from '@angular/router';
 })
 export class RecipeCardComponent {
   @Input() detailedRecipe: Recipe; // For Information
-  @Input() CardWidth: string; // Bootstrap card width
-  @Input() Link: boolean; // Navigate to detailedPage
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe';
@@ -25,7 +25,16 @@ export class SubmissionComponent implements OnInit {
     this.recipeForm = new FormGroup({
       title: new FormControl("", Validators.required),
       description: new FormControl("", Validators.required),
-      ingredients: new FormControl("", Validators.required),
+      ingredients: new FormArray([ // this is an array of ingredients
+        new FormGroup( // an object for  each individual ingredient
+          {
+            name: new FormControl("", [Validators.required]),
+            quantity: new FormControl(null, [Validators.required, Validators.min(1)]),
+            unit: new FormControl("", [Validators.required]),
+          }
+        )
+      ]),
+      instruction: new FormControl("", Validators.required),
       image: new FormControl("", Validators.required),
     })
   }
@@ -49,6 +58,20 @@ export class SubmissionComponent implements OnInit {
     }
   }
 
+  get ingredients() {
+    return this.recipeForm.get('ingredients') as FormArray // get ingredients from xpForm but in array state otherwise it has an error in ngFor loop when I want to get ingredients.controls
+  }
+
+  addIngredients() {
+    this.ingredients.push(
+      new FormGroup({
+        name: new FormControl("", [Validators.required]),
+        quantity: new FormControl(null, [Validators.required, Validators.min(1)]),
+        unit: new FormControl("", [Validators.required]),
+      })
+    )
+  }
+
 
 
   onSubmit() {
@@ -56,7 +79,8 @@ export class SubmissionComponent implements OnInit {
       title: this.recipeForm.get('title').value,
       description: this.recipeForm.get('description').value,
       image: this.recipeForm.get("image").value,
-      ingredients: this.recipeForm.get('ingredients').value
+      ingredients: this.recipeForm.get('ingredients').value,
+      instruction: this.recipeForm.get('instruction').value
     }
     this._recipe.addRecipe(newRecipe).subscribe({
       next: res => console.log(res),

@@ -4,16 +4,25 @@
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
     <label>Title<input type="text" formControlName="title" /></label>
     <label
-      >Description<textarea
-        formControlName="description"
-        id="description"
-        cols="30"
-        rows="5"
-      ></textarea>
-    </label>
-    <label>
-      Ingredients<input type="text" formControlName="ingredients"
+      >Description<input formControlName="description" id="description"
     /></label>
+
+    <div formArrayName="ingredients">
+      <div *ngFor="let ingredient of ingredients.controls; let i = index">
+        <div
+          [formGroupName]="i"
+          class="d-flex align-items-center gap-3"
+        >
+          <input formControlName="name" placeholder="Name" />
+          <input formControlName="quantity" placeholder="Quantity" />
+          <input formControlName="unit" placeholder="Unit" />
+        </div>
+      </div>
+    </div>
+    <label for="instruction">
+      <textarea cols="30" rows="10" formControlName="instruction"></textarea>
+    </label>
+
     <label class="image-upload" for="image" style="align-items: center">
       Choose Image
       <i class="bi bi-cloud-arrow-up-fill" style="font-size: 70px"></i>

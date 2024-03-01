@@ -2,4 +2,13 @@
   <img [src]="myRecipe.image" alt="" />
   <h4>{{ myRecipe.title }}</h4>
   <p>{{ myRecipe.description }}</p>
+  <ul>
+    <li *ngFor="let item of myRecipe.ingredients">
+      <p>{{ item.name }}</p>
+      <p>
+        <span>{{ item.quantity }}</span> <span>{{ item.unit }}</span>
+      </p>
+    </li>
+  </ul>
+  <p>{{ myRecipe.instruction }}</p>
 </article>
