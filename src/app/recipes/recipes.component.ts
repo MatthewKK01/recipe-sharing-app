@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../models/recipe';
 import { RecipeService } from '../services/recipe.service';

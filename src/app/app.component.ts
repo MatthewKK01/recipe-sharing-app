@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RecipeService } from './services/recipe.service';
-import { Recipe } from './models/recipe';
+import { Component,  } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +7,4 @@ import { Recipe } from './models/recipe';
 })
 export class AppComponent  {
   title = 'recipe-sharing-app';
-
-
 }

@@ -33,7 +33,7 @@ export class SubmissionComponent implements OnInit {
     })
   }
 
-  onImagePicked(event: any) {
+  onImagePicked(event: Event) {
     const fileInput = event.target as HTMLInputElement;
     const file: File = fileInput.files?.[0];
 
