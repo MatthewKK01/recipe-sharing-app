@@ -78,7 +78,10 @@ export class SubmissionComponent implements OnInit {
       isFavorited: false
     }
     this._recipe.addRecipe(newRecipe).subscribe({
-      next: res => console.log(res),
+      next: () => {
+        this.recipeForm.reset()
+        this.ingredients.removeAt(1)
+      },
       error: err => console.log(err)
     })
   }
