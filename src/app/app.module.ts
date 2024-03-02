@@ -8,9 +8,12 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { DetailedRecipeComponent } from './detailed-recipe/detailed-recipe.component';
 import { ErrorComponent } from './error/error.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterPipe } from './filter.pipe';
 
 
 @NgModule({
@@ -21,13 +24,17 @@ import { BackButtonComponent } from './back-button/back-button.component';
     DetailedRecipeComponent,
     ErrorComponent,
     RecipeCardComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,9 +6,14 @@
     alt="{{ myRecipe?.title }}"
     class="recipe-image"
   />
-  <button (click)="deleteRecipe(myRecipe.id)" class="btn btn-danger">
-    Delete Recipe
-  </button>
+  <div class="d-flex justify-content-between">
+    <button (click)="deleteRecipe(myRecipe.id)" class="btn btn-danger">
+      Delete Recipe
+    </button>
+    <button (click)="editRecipe(myRecipe.id)" class="btn btn-warning">
+      Edit Recipe
+    </button>
+  </div>
 
   <h1 class="recipe-title my-3">{{ myRecipe?.title }}</h1>
 

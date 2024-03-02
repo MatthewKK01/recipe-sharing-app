@@ -1,6 +1,32 @@
 <main>
-  <app-recipe-card
-    *ngFor="let item of recipes"
-    [detailedRecipe]="item"
-  ></app-recipe-card>
+  <div class="searchbar">
+    <input
+      type="text"
+      placeholder="Search for recipe"
+      [(ngModel)]="filterItems"
+    />
+    <i class="bi bi-x h1" (click)="clearInput()"></i>
+  </div>
+  <div *ngIf="recipes?.length == 0">
+    <a routerLink="newrecipe">
+      <button
+        class="btn btn-success position-absolute top-50 start-50 translate-middle"
+      >
+        Add New Recipe
+      </button>
+    </a>
+  </div>
+  <ng-container *ngIf="recipes?.length > 0">
+    <div class="wrapper">
+      <a class="" routerLink="newrecipe">
+        <button class="btn btn-success">Add Another Recipe</button>
+      </a>
+      <div class="recipe-list wrapper">
+        <app-recipe-card
+          *ngFor="let item of recipes | filter : filterItems"
+          [detailedRecipe]="item"
+        ></app-recipe-card>
+      </div>
+    </div>
+  </ng-container>
 </main>

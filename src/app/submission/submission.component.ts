@@ -1,7 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SafeUrl } from '@angular/platform-browser';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe';
 
@@ -63,7 +61,6 @@ export class SubmissionComponent implements OnInit {
   }
 
   addIngredients() {
-    
     this.ingredients.push(
       new FormGroup({
         name: new FormControl("", [Validators.required]),
@@ -87,6 +84,5 @@ export class SubmissionComponent implements OnInit {
       next: res => console.log(res),
       error: err => console.log(err)
     })
-
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe';
@@ -9,7 +9,7 @@ import { Recipe } from '../models/recipe';
   styleUrls: ['./detailed-recipe.component.scss']
 })
 export class DetailedRecipeComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private _recipe: RecipeService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private _recipe: RecipeService) { }
   myRecipe: Recipe | undefined
 
   ngOnInit(): void {
@@ -29,6 +29,9 @@ export class DetailedRecipeComponent implements OnInit {
       next: res => console.log(res),
       error: err => console.log(err)
     })
+  }
+  editRecipe(id: string) {
+    console.log(id);
   }
 
 }

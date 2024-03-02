@@ -11,8 +11,11 @@ import { RecipeService } from '../services/recipe.service';
 export class RecipesComponent implements OnInit {
 
   recipes: Recipe[];
+  filterItems: string = ""
   constructor(private _recipe: RecipeService) { }
-
+  clearInput() {
+    this.filterItems = ""
+  }
   ngOnInit(): void {
     this._recipe.getRecipes().subscribe({
       next: data => this.recipes = data,
