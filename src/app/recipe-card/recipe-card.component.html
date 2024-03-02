@@ -1,5 +1,20 @@
 <div class="card" style="width: 18rem">
-  <img class="card-img-top" [src]="detailedRecipe.image" alt="Card image cap" />
+  <div class="position-relative">
+    <img
+      class="card-img-top"
+      [src]="detailedRecipe.image"
+      alt="Card image cap"
+    />
+    <ng-container *ngIf="!detailedRecipe.isFavorited; else addToFavorites">
+      <i (click)="toggleFavorite()" class="position-absolute bi bi-heart"></i>
+    </ng-container>
+    <ng-template #addToFavorites>
+      <i
+        (click)="toggleFavorite()"
+        class="position-absolute bi bi-heart-fill"
+      ></i>
+    </ng-template>
+  </div>
   <div class="card-body">
     <h3 class="card-title">{{ detailedRecipe.title }}</h3>
     <p class="card-text">{{ detailedRecipe.description }}</p>

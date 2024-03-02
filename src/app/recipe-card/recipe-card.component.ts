@@ -11,4 +11,8 @@ import { Router } from '@angular/router';
 })
 export class RecipeCardComponent {
   @Input() detailedRecipe: Recipe; // For Information
+
+  toggleFavorite(): void {
+    this.detailedRecipe.isFavorited = !this.detailedRecipe.isFavorited;
+  }
 }

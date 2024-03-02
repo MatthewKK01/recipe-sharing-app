@@ -11,28 +11,24 @@ import { Recipe } from '../models/recipe';
   styleUrls: ['./submission.component.scss']
 })
 export class SubmissionComponent implements OnInit {
-
-
   recipeForm: FormGroup;
-  blob: string;
-  formData: FormData = new FormData()
 
   constructor(private _recipe: RecipeService) { }
 
   ngOnInit(): void {
     this.recipeForm = new FormGroup({
-      title: new FormControl("", Validators.required),
-      description: new FormControl("", Validators.required),
+      title: new FormControl("", [Validators.required, Validators.minLength(3)]),
+      description: new FormControl("", [Validators.required, Validators.minLength(10)]),
       ingredients: new FormArray([ // this is an array of ingredients
         new FormGroup( // an object for  each individual ingredient
           {
-            name: new FormControl("", [Validators.required]),
-            quantity: new FormControl(null, [Validators.required, Validators.min(1)]),
+            name: new FormControl("", [Validators.required, Validators.minLength(2)]),
+            quantity: new FormControl(null, [Validators.required, Validators.min(0.01)]),
             unit: new FormControl("", [Validators.required]),
           }
         )
       ]),
-      instruction: new FormControl("", Validators.required),
+      instruction: new FormControl("", [Validators.required, Validators.minLength(10)]),
       image: new FormControl("", Validators.required),
     })
   }
@@ -78,7 +74,8 @@ export class SubmissionComponent implements OnInit {
       description: this.recipeForm.get('description').value,
       image: this.recipeForm.get("image").value,
       ingredients: this.recipeForm.get('ingredients').value,
-      instruction: this.recipeForm.get('instruction').value
+      instruction: this.recipeForm.get('instruction').value,
+      isFavorited: false
     }
     this._recipe.addRecipe(newRecipe).subscribe({
       next: res => console.log(res),

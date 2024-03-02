@@ -6,3 +6,13 @@ p{
     -webkit-line-clamp: 3;
     line-height: 1.8;
 }
+i{
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+}
+i:hover{
+    background-color: #75757525 ;
+}

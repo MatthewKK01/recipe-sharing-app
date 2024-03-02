@@ -7,4 +7,5 @@ export interface Recipe {
     ingredients: Ingredients[];
     instruction: string;
     image?: string;
+    isFavorited: boolean;
 }

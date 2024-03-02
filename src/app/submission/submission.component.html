@@ -7,7 +7,9 @@
     <label>Title<input type="text" formControlName="title" /></label>
     <label
       >Description<input formControlName="description" id="description"
-    /></label>
+    />
+    <small></small>
+  </label>
 
     <div formArrayName="ingredients" class="d-flex flex-column gap-3">
       <div *ngFor="let ingredient of ingredients.controls; let i = index">
@@ -41,6 +43,12 @@
         hidden
     /></label>
 
-    <button type="submit" class="btn btn-primary">Add New Recipe</button>
+    <button
+      type="submit"
+      [disabled]="!recipeForm.valid"
+      class="btn btn-primary"
+    >
+      Add New Recipe
+    </button>
   </form>
 </main>

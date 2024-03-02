@@ -3,11 +3,20 @@
     <input
       type="text"
       placeholder="Search for recipe"
-      [(ngModel)]="filterItems"
+      [(ngModel)]="searchText"
     />
     <i class="bi bi-x h1" (click)="clearInput()"></i>
   </div>
-  <div *ngIf="recipes?.length == 0">
+  <select
+    [(ngModel)]="filter"
+    class="form-select wrapper"
+    aria-label="Default select example"
+  >
+    <option selected>Search By Category</option>
+    <option value="all">All</option>
+    <option value="favorites">Favorites</option>
+  </select>
+  <ng-container *ngIf="recipes?.length == 0">
     <a routerLink="newrecipe">
       <button
         class="btn btn-success position-absolute top-50 start-50 translate-middle"
@@ -15,7 +24,7 @@
         Add New Recipe
       </button>
     </a>
-  </div>
+  </ng-container>
   <ng-container *ngIf="recipes?.length > 0">
     <div class="wrapper">
       <a class="" routerLink="newrecipe">
@@ -23,7 +32,7 @@
       </a>
       <div class="recipe-list wrapper">
         <app-recipe-card
-          *ngFor="let item of recipes | filter : filterItems"
+          *ngFor="let item of filteredRecipes | filter : searchText"
           [detailedRecipe]="item"
         ></app-recipe-card>
       </div>
