@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: "", component: RecipesComponent },
   { path: "recipe/:id", component: DetailedRecipeComponent },
   { path: "newrecipe", component: SubmissionComponent },
+  { path: "edit/:id", component: SubmissionComponent },
   { path: "**", component: ErrorComponent }
 
 ];

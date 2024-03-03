@@ -1,7 +1,8 @@
 import { Component, OnInit, } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -11,11 +12,61 @@ import { Recipe } from '../models/recipe';
   styleUrls: ['./submission.component.scss']
 })
 export class SubmissionComponent implements OnInit {
-  recipeForm: FormGroup;
+  isNewRecipe = true;
+  recipeForm: FormGroup | undefined;
+  id: string;
 
-  constructor(private _recipe: RecipeService) { }
+  constructor(private _recipe: RecipeService, private route: ActivatedRoute, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.initializeFormGroup();
+    this.route.url.subscribe({
+      next: urlSegments => {
+        const currentUrl = urlSegments.map(segment => segment.path).join('/'); // take an URL
+        if (currentUrl === "newrecipe") {
+          this.isNewRecipe = true; // if I am in newrecipe endpoint I will be able to post data
+        } else {
+          this.isNewRecipe = false;
+          // If I am in editRecipe page I will be able to edit this data that took from state
+        }
+      }
+    })
+    if (this.isNewRecipe) {
+      return null;
+    } else {
+      this.route.params.subscribe(params => {
+        this.id = params['id'];
+        this._recipe.fetchDetailedRecipe(this.id).subscribe(
+          {
+            next: (res) => {
+
+              this.recipeForm.patchValue({
+                title: res.title,
+                description: res.description,
+                image: res.image,
+
+                instruction: res.instruction
+              })
+              // Patch ingredients separately
+              const ingredientsArray = this.recipeForm.get('ingredients') as FormArray;
+              ingredientsArray.clear(); // Clear existing values if any
+              res.ingredients.forEach(ingredient => {
+                ingredientsArray.push(this.fb.group({
+                  name: [ingredient.name],
+                  quantity: [ingredient.quantity],
+                  unit: [ingredient.unit]
+                }));
+              });
+            }
+          }
+        )
+      }
+      )
+    }
+
+  }
+
+  initializeFormGroup() {
     this.recipeForm = new FormGroup({
       title: new FormControl("", [Validators.required, Validators.minLength(3)]),
       description: new FormControl("", [Validators.required, Validators.minLength(10)]),
@@ -32,7 +83,6 @@ export class SubmissionComponent implements OnInit {
       image: new FormControl("", Validators.required),
     })
   }
-
   onImagePicked(event: Event) {
     const fileInput = event.target as HTMLInputElement;
     const file: File = fileInput.files?.[0];
@@ -69,20 +119,37 @@ export class SubmissionComponent implements OnInit {
 
 
   onSubmit() {
-    const newRecipe: Recipe = {
-      title: this.recipeForm.get('title').value,
-      description: this.recipeForm.get('description').value,
-      image: this.recipeForm.get("image").value,
-      ingredients: this.recipeForm.get('ingredients').value,
-      instruction: this.recipeForm.get('instruction').value,
-      isFavorited: false
+    if (this.isNewRecipe) {
+      const newRecipe: Recipe = {
+        title: this.recipeForm.get('title').value,
+        description: this.recipeForm.get('description').value,
+        image: this.recipeForm.get("image").value,
+        ingredients: this.recipeForm.get('ingredients').value,
+        instruction: this.recipeForm.get('instruction').value,
+        isFavorited: false
+      }
+      this._recipe.addRecipe(newRecipe).subscribe({
+        next: () => {
+          this.recipeForm.reset()
+          this.ingredients.removeAt(1)
+        },
+        error: err => console.log(err)
+      })
+    } else {
+      const newRecipe: Recipe = {
+        id: this.id,
+        title: this.recipeForm.get('title').value,
+        description: this.recipeForm.get('description').value,
+        image: this.recipeForm.get("image").value,
+        ingredients: this.recipeForm.get('ingredients').value,
+        instruction: this.recipeForm.get('instruction').value,
+        isFavorited: false
+      }
+
+      this._recipe.updateRecipe(this.id, newRecipe).subscribe({
+        next: res => console.log(res),
+        error: err => console.log("there is an error:", err)
+      })
     }
-    this._recipe.addRecipe(newRecipe).subscribe({
-      next: () => {
-        this.recipeForm.reset()
-        this.ingredients.removeAt(1)
-      },
-      error: err => console.log(err)
-    })
   }
 }

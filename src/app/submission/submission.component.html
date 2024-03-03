@@ -1,15 +1,17 @@
 <a routerLink="/" class="btn btn-info"><i class="bi bi-arrow-left"></i></a>
 
-<p style="text-align: center" class="mt-5">Add New Recipe</p>
+<p style="text-align: center" class="mt-5">
+  <span *ngIf="isNewRecipe">Add New Recipe</span>
+  <span *ngIf="!isNewRecipe">Edit Recipe</span>
+</p>
 
 <main>
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
     <label>Title<input type="text" formControlName="title" /></label>
     <label
-      >Description<input formControlName="description" id="description"
-    />
-    <small></small>
-  </label>
+      >Description<input formControlName="description" id="description" />
+      <small></small>
+    </label>
 
     <div formArrayName="ingredients" class="d-flex flex-column gap-3">
       <div *ngFor="let ingredient of ingredients.controls; let i = index">
@@ -44,11 +46,20 @@
     /></label>
 
     <button
+      *ngIf="isNewRecipe"
       type="submit"
       [disabled]="!recipeForm.valid"
       class="btn btn-primary"
     >
       Add New Recipe
+    </button>
+    <button
+      *ngIf="!isNewRecipe"
+      type="submit"
+      [disabled]="!recipeForm.valid"
+      class="btn btn-success"
+    >
+      Edit Recipe
     </button>
   </form>
 </main>
