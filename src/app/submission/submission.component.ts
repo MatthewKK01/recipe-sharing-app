@@ -39,14 +39,6 @@ export class SubmissionComponent implements OnInit {
         this._recipe.fetchDetailedRecipe(this.id).subscribe(
           {
             next: (res) => {
-
-              this.recipeForm.patchValue({
-                title: res.title,
-                description: res.description,
-                image: res.image,
-
-                instruction: res.instruction
-              })
               // Patch ingredients separately
               const ingredientsArray = this.recipeForm.get('ingredients') as FormArray;
               ingredientsArray.clear(); // Clear existing values if any
@@ -57,6 +49,12 @@ export class SubmissionComponent implements OnInit {
                   unit: [ingredient.unit]
                 }));
               });
+              this.recipeForm.patchValue({
+                title: res.title,
+                description: res.description,
+                instruction: res.instruction,
+                image: res.image.toString()
+              })
             }
           }
         )
@@ -80,7 +78,7 @@ export class SubmissionComponent implements OnInit {
         )
       ]),
       instruction: new FormControl("", [Validators.required, Validators.minLength(10)]),
-      image: new FormControl("", Validators.required),
+      image: new FormControl(null, Validators.required),
     })
   }
   onImagePicked(event: Event) {
@@ -105,9 +103,6 @@ export class SubmissionComponent implements OnInit {
   get ingredients() {
     return this.recipeForm.get('ingredients') as FormArray // get ingredients from xpForm but in array state otherwise it has an error in ngFor loop when I want to get ingredients.controls
   }
-  get imageControl() {
-    return this.recipeForm.get('image');
-  }
 
   addIngredients() {
     this.ingredients.push(
@@ -117,6 +112,11 @@ export class SubmissionComponent implements OnInit {
         unit: new FormControl("", [Validators.required]),
       })
     )
+  }
+  removeImage() {
+    this.recipeForm.patchValue({
+      image: null
+    })
   }
 
 

@@ -8,7 +8,7 @@
 <main>
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
     <label
-      >Title<input type="text" pattern="^\S+$" formControlName="title" />
+      >Title<input type="text" formControlName="title" />
       <div
         id="small"
         *ngIf="
@@ -30,11 +30,7 @@
       </div>
     </label>
     <label
-      >Description<input
-        formControlName="description"
-        pattern="^\S+$"
-        id="description"
-      />
+      >Description<input formControlName="description" id="description" />
       <div
         id="small"
         *ngIf="
@@ -61,7 +57,7 @@
       <div *ngFor="let ingredient of ingredients.controls; let i = index">
         <div [formGroupName]="i" class="d-flex align-items-center gap-3">
           <div>
-            <input formControlName="name" pattern="^\S+$" placeholder="Name" />
+            <input formControlName="name" placeholder="Name" />
             <div class="name-error">
               <div
                 id="small"
@@ -86,11 +82,7 @@
             </div>
           </div>
           <div>
-            <input
-              formControlName="quantity"
-              pattern="^\S+$"
-              placeholder="Quantity"
-            />
+            <input formControlName="quantity" placeholder="Quantity" />
             <div class="quantity-error">
               <div
                 id="small"
@@ -125,7 +117,7 @@
             </div>
           </div>
           <div>
-            <input formControlName="unit" pattern="^\S+$" placeholder="Unit" />
+            <input formControlName="unit" placeholder="Unit" />
             <div class="unit-error">
               <div
                 id="small"
@@ -150,12 +142,7 @@
       Add New Ingredient
     </button>
     <label for="instruction">
-      <textarea
-        cols="30"
-        rows="5"
-        pattern="^\S+$"
-        formControlName="instruction"
-      ></textarea>
+      <textarea cols="30" rows="5" formControlName="instruction"></textarea>
       <div
         id="small"
         *ngIf="
@@ -178,7 +165,11 @@
       </div>
     </label>
 
-    <label class="image-upload" for="image" style="align-items: center">
+    <label
+      class="image-upload"
+      for="image"
+      style="align-items: center"
+    >
       Choose Image
       <i class="bi bi-cloud-arrow-up-fill" style="font-size: 70px"></i>
       <input
@@ -189,7 +180,7 @@
         id="image"
         hidden
     /></label>
-
+    
     <button
       *ngIf="isNewRecipe"
       type="submit"
