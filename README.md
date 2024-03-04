@@ -30,7 +30,7 @@ The application follows a standard Angular structure with the following key dire
 2. **Navigate to the project directory**
 
    ```bash
-   cd your-repo
+   cd recipe-sharing-app
    ```
 
 3. **Install dependencies**
