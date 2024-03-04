@@ -10,7 +10,7 @@ import { Recipe } from '../../models/recipe';
   styleUrls: ['./recipe-card.component.scss']
 })
 export class RecipeCardComponent {
-  @Input() detailedRecipe: Recipe; // For Information
+  @Input() detailedRecipe: Recipe; // take data from parent child which should be rendered 
 
   toggleFavorite(): void {
     this.detailedRecipe.isFavorited = !this.detailedRecipe.isFavorited;

@@ -15,7 +15,7 @@ export class SubmissionComponent implements OnInit {
   isNewRecipe = true;
   recipeForm: FormGroup | undefined;
   id: string;
-
+  myImage: null;
   constructor(private _recipe: RecipeService, private route: ActivatedRoute, private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -34,26 +34,31 @@ export class SubmissionComponent implements OnInit {
     if (this.isNewRecipe) {
       return null;
     } else {
+
+      //take and id from query
       this.route.params.subscribe(params => {
         this.id = params['id'];
+
         this._recipe.fetchDetailedRecipe(this.id).subscribe(
           {
             next: (res) => {
+              console.log(res);
               // Patch ingredients separately
               const ingredientsArray = this.recipeForm.get('ingredients') as FormArray;
               ingredientsArray.clear(); // Clear existing values if any
+              // Set the ingretients array data from server
               res.ingredients.forEach(ingredient => {
-                ingredientsArray.push(this.fb.group({
-                  name: [ingredient.name],
-                  quantity: [ingredient.quantity],
-                  unit: [ingredient.unit]
+                ingredientsArray.push(new FormGroup({
+                  name: new FormControl(ingredient.name),
+                  quantity: new FormControl(ingredient.quantity),
+                  unit: new FormControl(ingredient.unit)
                 }));
               });
+              // Set other data to my reactive form
               this.recipeForm.patchValue({
                 title: res.title,
                 description: res.description,
                 instruction: res.instruction,
-                image: res.image.toString()
               })
             }
           }
@@ -78,9 +83,10 @@ export class SubmissionComponent implements OnInit {
         )
       ]),
       instruction: new FormControl("", [Validators.required, Validators.minLength(10)]),
-      image: new FormControl(null, Validators.required),
+      image: new FormControl("", Validators.required),
     })
   }
+  // Image upload
   onImagePicked(event: Event) {
     const fileInput = event.target as HTMLInputElement;
     const file: File = fileInput.files?.[0];
@@ -91,6 +97,7 @@ export class SubmissionComponent implements OnInit {
       reader.onload = () => {
         // Convert the image to a data URL
         const imageDataUrl = reader.result as string;
+
 
         // Save the data URL to your JSON server
         this.recipeForm.get('image').patchValue(imageDataUrl);
@@ -103,7 +110,7 @@ export class SubmissionComponent implements OnInit {
   get ingredients() {
     return this.recipeForm.get('ingredients') as FormArray // get ingredients from xpForm but in array state otherwise it has an error in ngFor loop when I want to get ingredients.controls
   }
-
+  // Create  a new form group for every new added ingredient
   addIngredients() {
     this.ingredients.push(
       new FormGroup({
@@ -113,12 +120,6 @@ export class SubmissionComponent implements OnInit {
       })
     )
   }
-  removeImage() {
-    this.recipeForm.patchValue({
-      image: null
-    })
-  }
-
 
 
   onSubmit() {
@@ -131,6 +132,7 @@ export class SubmissionComponent implements OnInit {
         instruction: this.recipeForm.get('instruction').value,
         isFavorited: false
       }
+      // add new recipe to our back-end
       this._recipe.addRecipe(newRecipe).subscribe({
         next: () => {
           this.recipeForm.reset()
@@ -148,7 +150,7 @@ export class SubmissionComponent implements OnInit {
         instruction: this.recipeForm.get('instruction').value,
         isFavorited: false
       }
-
+      // Update exsiting recipe
       this._recipe.updateRecipe(this.id, newRecipe).subscribe({
         next: res => console.log(res),
         error: err => console.log("there is an error:", err)
