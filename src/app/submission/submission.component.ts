@@ -74,7 +74,7 @@ export class SubmissionComponent implements OnInit {
         new FormGroup( // an object for  each individual ingredient
           {
             name: new FormControl("", [Validators.required, Validators.minLength(2)]),
-            quantity: new FormControl(null, [Validators.required, Validators.min(0.01)]),
+            quantity: new FormControl(null, [Validators.required, Validators.min(0.01), Validators.pattern('^[0-9]+$')]),
             unit: new FormControl("", [Validators.required]),
           }
         )
@@ -104,6 +104,9 @@ export class SubmissionComponent implements OnInit {
 
   get ingredients() {
     return this.recipeForm.get('ingredients') as FormArray // get ingredients from xpForm but in array state otherwise it has an error in ngFor loop when I want to get ingredients.controls
+  }
+  get imageControl() {
+    return this.recipeForm.get('image');
   }
 
   addIngredients() {

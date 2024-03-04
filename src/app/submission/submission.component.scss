@@ -37,15 +37,20 @@ input,textarea{
 }
 input{
     height: 44px;
+    transition: all .5s ease-in-out;
     padding: 12px;
-    
+}
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+#small{color:red;
+transition: all 0.7s ease-in;
 }
 p{
-   
     font-weight: bold;
     font-size: 34px;
 }
-
 a{
     position: relative;
     top: 2.5rem;

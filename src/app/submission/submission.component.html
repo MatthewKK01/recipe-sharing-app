@@ -7,18 +7,138 @@
 
 <main>
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-    <label>Title<input type="text" formControlName="title" /></label>
     <label
-      >Description<input formControlName="description" id="description" />
-      <small></small>
+      >Title<input type="text" pattern="^\S+$" formControlName="title" />
+      <div
+        id="small"
+        *ngIf="
+          !recipeForm.get('title').valid && recipeForm.get('title').touched
+        "
+        class="form-text"
+      >
+        Title is required
+      </div>
+      <div
+        id="small"
+        *ngIf="
+          recipeForm.get('title').hasError('minlength') &&
+          recipeForm.get('title').touched
+        "
+        class="form-text"
+      >
+        Title min length must be 3
+      </div>
+    </label>
+    <label
+      >Description<input
+        formControlName="description"
+        pattern="^\S+$"
+        id="description"
+      />
+      <div
+        id="small"
+        *ngIf="
+          !recipeForm.get('description').valid &&
+          recipeForm.get('description').touched
+        "
+        class="form-text"
+      >
+        Description is required
+      </div>
+      <div
+        id="small"
+        *ngIf="
+          recipeForm.get('description').hasError('minlength') &&
+          recipeForm.get('description').touched
+        "
+        class="form-text"
+      >
+        Destciption min length must be 10
+      </div>
     </label>
 
     <div formArrayName="ingredients" class="d-flex flex-column gap-3">
       <div *ngFor="let ingredient of ingredients.controls; let i = index">
         <div [formGroupName]="i" class="d-flex align-items-center gap-3">
-          <input formControlName="name" placeholder="Name" />
-          <input formControlName="quantity" placeholder="Quantity" />
-          <input formControlName="unit" placeholder="Unit" />
+          <div>
+            <input formControlName="name" pattern="^\S+$" placeholder="Name" />
+            <div class="name-error">
+              <div
+                id="small"
+                *ngIf="
+                  !ingredient.get('name').valid &&
+                  ingredient.get('name').touched
+                "
+                class="form-text"
+              >
+                Name is required
+              </div>
+              <div
+                id="small"
+                *ngIf="
+                  ingredient.get('name').hasError('minlength') &&
+                  ingredient.get('name').touched
+                "
+                class="form-text"
+              >
+                Name min length must be 2
+              </div>
+            </div>
+          </div>
+          <div>
+            <input
+              formControlName="quantity"
+              pattern="^\S+$"
+              placeholder="Quantity"
+            />
+            <div class="quantity-error">
+              <div
+                id="small"
+                *ngIf="
+                  !ingredient.get('quantity').valid &&
+                  ingredient.get('quantity').touched
+                "
+                class="form-text"
+              >
+                Quantity is required
+              </div>
+              <div
+                id="small"
+                *ngIf="
+                  ingredient.get('quantity').hasError('min') &&
+                  ingredient.get('quantity').touched
+                "
+                class="form-text"
+              >
+                Quantity must be greater than 0
+              </div>
+              <div
+                id="small"
+                *ngIf="
+                  ingredient.get('quantity').hasError('pattern') &&
+                  ingredient.get('quantity').touched
+                "
+                class="form-text"
+              >
+                Quantity must be number
+              </div>
+            </div>
+          </div>
+          <div>
+            <input formControlName="unit" pattern="^\S+$" placeholder="Unit" />
+            <div class="unit-error">
+              <div
+                id="small"
+                *ngIf="
+                  !ingredient.get('unit').valid &&
+                  ingredient.get('unit').touched
+                "
+                class="form-text"
+              >
+                Unit is required
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -30,7 +150,32 @@
       Add New Ingredient
     </button>
     <label for="instruction">
-      <textarea cols="30" rows="5" formControlName="instruction"></textarea>
+      <textarea
+        cols="30"
+        rows="5"
+        pattern="^\S+$"
+        formControlName="instruction"
+      ></textarea>
+      <div
+        id="small"
+        *ngIf="
+          !recipeForm.get('instruction').valid &&
+          recipeForm.get('instruction').touched
+        "
+        class="form-text"
+      >
+        Instruction is required
+      </div>
+      <div
+        id="small"
+        *ngIf="
+          recipeForm.get('instruction').hasError('minlength') &&
+          recipeForm.get('instruction').touched
+        "
+        class="form-text"
+      >
+        Instruction min length must be 10
+      </div>
     </label>
 
     <label class="image-upload" for="image" style="align-items: center">
@@ -40,7 +185,7 @@
         type="file"
         ngDefaultControl
         (change)="onImagePicked($event)"
-        name="image"
+        formControlName="image"
         id="image"
         hidden
     /></label>
