@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RecipesComponent } from './recipes/recipes.component';
-import { DetailedRecipeComponent } from './detailed-recipe/detailed-recipe.component';
-import { SubmissionComponent } from './submission/submission.component';
-import { ErrorComponent } from './error/error.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { DetailedRecipeComponent } from './components/detailed-recipe/detailed-recipe.component';
+import { SubmissionComponent } from './components/submission/submission.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const routes: Routes = [
   { path: "", component: RecipesComponent },
