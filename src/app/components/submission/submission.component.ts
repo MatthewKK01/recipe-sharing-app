@@ -1,8 +1,8 @@
 import { Component, OnInit, } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 import { Recipe } from '../../models/recipe';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -16,7 +16,7 @@ export class SubmissionComponent implements OnInit {
   recipeForm: FormGroup | undefined;
   id: string;
   myImage: null;
-  constructor(private _recipe: RecipeService, private route: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private _recipe: RecipeService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.initializeFormGroup();
@@ -59,6 +59,7 @@ export class SubmissionComponent implements OnInit {
                 title: res.title,
                 description: res.description,
                 instruction: res.instruction,
+                image: res.image
               })
             }
           }
@@ -83,7 +84,7 @@ export class SubmissionComponent implements OnInit {
         )
       ]),
       instruction: new FormControl("", [Validators.required, Validators.minLength(10)]),
-      image: new FormControl("", Validators.required),
+      image: new FormControl(""),
     })
   }
   // Image upload
@@ -121,6 +122,9 @@ export class SubmissionComponent implements OnInit {
     )
   }
 
+  goBack() {
+    this.router.navigate(['/'])
+  }
 
   onSubmit() {
     if (this.isNewRecipe) {
@@ -152,7 +156,10 @@ export class SubmissionComponent implements OnInit {
       }
       // Update exsiting recipe
       this._recipe.updateRecipe(this.id, newRecipe).subscribe({
-        next: res => console.log(res),
+        next: res => {
+          console.log(res)
+          this.recipeForm.reset()
+        },
         error: err => console.log("there is an error:", err)
       })
     }

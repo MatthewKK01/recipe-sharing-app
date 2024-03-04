@@ -9,7 +9,7 @@
   </div>
   <select
     [(ngModel)]="filter"
-    class="form-select wrapper"
+    class="form-select wrapper mt-4"
     aria-label="Default select example"
   >
     <option selected>Search By Category</option>
@@ -28,9 +28,9 @@
   <ng-container *ngIf="recipes?.length > 0">
     <div class="wrapper">
       <a class="" routerLink="newrecipe">
-        <button class="btn btn-success">Add Another Recipe</button>
+        <button class="btn mt-3 btn-success">Add Another Recipe</button>
       </a>
-      <div class="recipe-list wrapper">
+      <div class="recipe-list mt-5 wrapper">
         <app-recipe-card
           *ngFor="let item of filteredRecipes | filter : searchText"
           [detailedRecipe]="item"

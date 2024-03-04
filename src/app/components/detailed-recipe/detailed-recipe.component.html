@@ -6,8 +6,13 @@
     alt="{{ myRecipe?.title }}"
     class="recipe-image"
   />
-  <div class="d-flex justify-content-between">
-    <button (click)="deleteRecipe(myRecipe.id)" class="btn btn-danger">
+  <div class="d-flex mt-2 justify-content-between">
+    <button
+      (click)="deleteRecipe(myRecipe.id)"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      class="btn btn-danger"
+    >
       Delete Recipe
     </button>
     <button (click)="navigateToEdit()" class="btn btn-warning">
@@ -42,3 +47,34 @@
 
   <p class="recipe-instruction mb-5">{{ myRecipe?.instruction }}</p>
 </article>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">+1 Message</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">Your recipe has been deleted</div>
+      <div class="modal-footer">
+        <a routerLink="/">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            Save changes
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

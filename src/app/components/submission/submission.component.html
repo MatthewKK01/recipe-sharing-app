@@ -181,6 +181,8 @@
       type="submit"
       [disabled]="!recipeForm.valid"
       class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#successModal"
     >
       Add New Recipe
     </button>
@@ -189,8 +191,78 @@
       type="submit"
       [disabled]="!recipeForm.valid"
       class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#editModal"
     >
       Edit Recipe
     </button>
   </form>
 </main>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="successModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">+1 Message</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">Your recipe has been added</div>
+      <div class="modal-footer">
+        <button
+          (click)="goBack()"
+          data-bs-dismiss="modal"
+          type="button"
+          class="btn btn-primary"
+        >
+          Go back to main page
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="editModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">+1 Message</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">Your Recipe has been updated</div>
+      <div class="modal-footer">
+        <button
+          (click)="goBack()"
+          type="button"
+          data-bs-dismiss="modal"
+          class="btn btn-primary"
+        >
+          Go to main page
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
